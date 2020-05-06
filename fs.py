@@ -20,7 +20,7 @@ def cli():
 @click.argument('symbol')
 @click.option('--year', type=int)
 @click.option('--quarter', type=int, default=4)
-@click.option('--col', type=(str, int), multiple=True)
+@click.option('--col', type=(str, str), multiple=True)
 def insert(target, market, symbol, year, quarter, col):
     t = TableAdaptorFactory(get_database_path()).by_shortcut(target)
     market = market.upper()
@@ -31,10 +31,7 @@ def insert(target, market, symbol, year, quarter, col):
             raise Exception("Providing 'col' when creating stocks")
         t.insert(market, symbol)
     else:
-        mul_by_1000 = ()
-        for c in col:
-            mul_by_1000 += ((c[0], c[1]*1000),)
-        t.insert(market, symbol, year, quarter, mul_by_1000)
+        t.insert(market, symbol, year, quarter, col)
 
 @cli.command()
 @click.argument('target')
@@ -51,10 +48,11 @@ def delete(target, market, symbol, year, quarter):
 @click.argument('target')
 @click.argument('market')
 @click.argument('symbol')
-def query(target, market, symbol):
+@click.option('--arg', type=(str, str), multiple=True) 
+def query(target, market, symbol, arg):
     d = DashboardFactory(get_database_path()).by_shortcut(target)
     market = market.upper()
-    d.draw(market, symbol)
+    d.draw(market, symbol, arg)
 
 @cli.command()
 @click.argument('target')

@@ -32,7 +32,7 @@ class ManufacturingExpense2:
             value)
         VALUES(?,?,?,?,?,?)'''
         for c in cols:
-            self.conn.execute(stmt, pk+c)
+            self.conn.execute(stmt, pk+(c[0], int(c[1])*1000))
         self.conn.commit()
 
     def query(self, market, symbol, cols):

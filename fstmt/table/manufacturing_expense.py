@@ -45,7 +45,7 @@ class ManufacturingExpense:
             if stmt[-1] != ',':
                 stmt += ','
             stmt += ' ' + c[0]
-            params += (c[1],)
+            params += (int(c[1])*1000,)
         stmt += ') VALUES ('
         for _ in range(len(params)-1):
             stmt += "?,"
