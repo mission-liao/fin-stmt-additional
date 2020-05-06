@@ -5,6 +5,8 @@ from .cost_breakdown import CostBreakdown
 from .stock import Stock
 from .manufacturing_expense import ManufacturingExpense 
 from .me2 import ManufacturingExpense2
+from .product_price import ProductPrice
+from .product_cost import ProductCost
 
 class TableAdaptorFactory:
 
@@ -13,6 +15,8 @@ class TableAdaptorFactory:
         'cb': CostBreakdown,
         'me': ManufacturingExpense,
         'me2': ManufacturingExpense2,
+        'pp': ProductPrice,
+        'pc': ProductCost,
     }
 
     def __init__(self, db_path):
@@ -33,6 +37,12 @@ class TableAdaptorFactory:
 
     def manufacturing_expense2(self):
         return ManufacturingExpense2(self.conn)
+
+    def product_price(self):
+        return ProductPrice(self.conn)
+
+    def product_cost(self):
+        return ProductCost(self.conn)
 
     def by_shortcut(self, shortcut):
         t = TableAdaptorFactory.shortcut_mapping.get(shortcut, None)

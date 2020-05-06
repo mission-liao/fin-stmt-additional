@@ -8,7 +8,9 @@ class CostAnalysis:
     def __init__(self, db):
         self.db = db
 
-    def draw(self, market, symbol):
+    def draw(self, market, symbol, args):
+        if len(args) != 0:
+            raise Exception('no argument required for {}'.format(CostAnalysis.__name__))
         cb_cols = (
             '耗用原料',
             '耗用物料',

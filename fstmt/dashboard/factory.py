@@ -3,11 +3,13 @@
 from ..table import TableAdaptorFactory
 
 from .cost_analysis import CostAnalysis
+from .price_analysis import PriceAnalysis
 
 class DashboardFactory:
 
     shortcut_mapping = {
-        'ca': CostAnalysis
+        'ca': CostAnalysis,
+        'pa': PriceAnalysis,
     }
 
     def __init__(self, db_path):
